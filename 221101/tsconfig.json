@@ -1,0 +1,68 @@
+{
+  "exclude": ["node_modules"], // typeScript 컴파일 제외할 폴더
+  "compilerOptions": {
+    // 세세히 정할 옵션
+    "outDir": "./build/",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "ES6",
+    "removeComments": true,
+    "lib": ["ES6", "DOM"],
+    "allowJs": true,
+    "typeRoots": ["./node_modules/@types", "./@types"],
+    "baseUrl": ".",
+    "paths": { "@myUrl/*": ["src/views"], "*": ["@types/*"] }
+  },
+  "ts-node": {
+    // ts-node 설정값
+    "files": true, // 전역 상태로 declare한 type들을 ts-node에서 찾을 수 있게 해줌
+    "require": ["tsconfig-paths/register"]
+  }
+}
+
+// include : TypeScript가 해당 디렉토리 안에 모든 파일을 확인한다는 것을 의미
+//           TypeScript로 컴파일할 시 포함할 파일과 포함하지 않을 파일을 구분 가능
+
+// exclude : 컴파일 대상에서 제외하는 설정값
+
+// compilerOptions : 컴파일 대상 파일들을 어떻게 변환할지 세세히 정하는 옵션
+
+// outDir : 빌드한 파일 (JS파일)이 생성될 디렉토리 지정
+
+// exModuleInterop : commonJs 방식으로 내보낸 모듈을 ES모듈 방식의 import로 가져올 수 있게 해줌
+//                   commonJs 모듈을 ES6 모듈 코드 베이스로 가져오려고 하면 문제가 발생
+//                   "exModuleInterop" : true로 설정해주면 ES6 모듈 사양을 준수해서
+//                   commonJs모듈을 가져올 수 있게 됨
+
+// moduleResolution : 모듈을 import하거나 export할 때 어떤 방식으로 처리할지
+
+// strict : 엄격모드
+
+// removeComments : 컴파일시 주석 제거
+
+// lib : 타입 정의 파일( .d.ts )이 목표로 하는 런타임 환경을 알려줌
+// 컴파일된 JavaScript파일이 어디서 동작할 것인지 알려주는 설정값
+// "lib" : ["ES6","DOM"] = ES6를 지원하고 DOM(브라우저 환경)에서 코드를 실행시키겠다는 의미
+
+// allowJs : js파일도 컴파일 대상.
+//           프로젝트 내에서 점진적으로 TypeScript로 변환하기 위해 사용하는 설정값
+
+// typeRoots : 타입을 저장할 디렉토리 지정. typeRoots에 작성된 경로에서 정의되어 있는 타입을 찾음
+//             만약 외부 라이브러리를 사용해서 타입을 정의한다면 @type와 같이 별도의 타입 디렉토리를 만들고
+//             그 안에 .d.ts파일을 생성한 뒤 디렉토리를 typeRoots에 추가하면 됨
+//             이 경로는 tsconfig.json파일이 있는 곳에서 상대 경로로 작성하면 됨
+
+// baseUrl : 외부 모듈이 아닌 이상 상대경로로 모듈을 가져와야 하는데 baseUrl은 외부 모듈이 아닌 모듈을 가져올 때
+//           절대 경로로 참조할 수 있게 해줌. 만약 src폴더를 설정할 경우 src/ 를 기준으로 절대경로로 모듈 참조 가능
+
+// paths : 모듈을 참조할 때 baseUrl을 기준으로 다시 매핑 가능. 경로에 별칭을 붙여서 사용하는 것이 가능
+//         "@myPaths/* " : ["src/views/*"] @myPaths/ 라는 별칭으로 src 디렉토리 안에 있는 /views 디렉토리 안의 모든 파일
+
+// .d.ts 파일
+// 전역 변수나 전역 함수에 대한 타입 선언이 가능
+// import로 받아오거나 export로 내보내지 않아도 전역 변수나 전역 함수에 대한 타입 선언이 가능
+// .d.ts파일은 import나 export가 없어도 되는 로컬 모듈
+// 그래서 다른 타입스크립트 파일에서 import로 가져와서 사용해야 하는데
+// typeRoots로 설정하면 옵션을 통해 글로벌 모듈로 만들 수 있음.
