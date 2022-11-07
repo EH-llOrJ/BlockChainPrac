@@ -24,3 +24,4 @@ declare interface IBlock extends IBlockHeader {
 nonce difficulty이 속성들은
 차후에 채굴 난이도와 마이닝 부분을 구현할 때 사용할 속성
 */
+
