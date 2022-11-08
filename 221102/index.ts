@@ -1,6 +1,7 @@
 import { BlockChain } from "@core/index";
 import { P2PServer } from "@core/server/p2p";
 import express from "express";
+import { json } from "stream/consumers";
 
 const app = express();
 const ws = new P2PServer();
@@ -12,7 +13,7 @@ app.get("/", (req, res) => {
 });
 
 // 블록 내용 조회
-app.get("/chins", (req, res) => {
+app.get("/chains", (req, res) => {
   res.json(ws.getChain());
 });
 
@@ -30,10 +31,10 @@ app.post("/addToPeer", (req, res) => {
   ws.connectToPeer(peer);
 });
 
+// 연결된 socket 조회
 app.get("/peer", (req, res) => {
-  const sockets = ws.getSockets().map((socket: any) => {
-    return res.json(socket);
-  });
+  const sockets = ws.getSockets().map((socket: any) => socket);
+  res.send(sockets);
 });
 
 app.listen(8000, () => {
@@ -41,4 +42,4 @@ app.listen(8000, () => {
   ws.listen();
 });
 
-// ts-node : 타입스크립
+// ts-node : 타입스크립트 node 환경 실행
