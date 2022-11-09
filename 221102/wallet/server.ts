@@ -2,7 +2,7 @@
 
 import express from "express";
 import nunjucks from "nunjucks";
-import { Wallet } from "./wallet";
+import { Wallet } from "./Wallet";
 import axios from "axios";
 import path from "path";
 
@@ -27,7 +27,7 @@ app.set("view engine", "html");
 // axios 사용할때 디폴트값 세팅
 //
 const baseURL = "http://localhost:3000";
-const baseAuth = Buffer.from("soon" + ":" + "1234").toString("base64");
+const baseAuth = Buffer.from("hoon" + ":" + "1234").toString("base64");
 const request = axios.create({
   baseURL,
   headers: {
@@ -48,6 +48,43 @@ app.get("/", (req, res) => {
 
 app.post("/newWallet", (req, res) => {
   res.json(new Wallet());
+});
+
+app.post("/walletList", (req, res) => {
+  const list = Wallet.getWalletList();
+  res.json(list);
+});
+
+app.get("/wallet/:account", (req, res) => {
+  const { account } = req.params;
+  const privateKey = Wallet.getWalletPrivateKey(account);
+  res.json(new Wallet(privateKey));
+});
+
+app.post("/sendTransaction", async (req, res) => {
+  console.log(req.body);
+  const {
+    sender: { publicKey, account },
+    received,
+    amount,
+  } = req.body;
+  // 서명 만들기
+  // 필요한 값은 SHA256(보낸 사람 공개키 + 받는 사람 계정 + 보낼 금액)
+  const signature = Wallet.createSign(req.body);
+
+  // 보낼 사람 : 공개키
+  // 받는 사람 : 계정, 서명
+  const txObject = {
+    sender: publicKey,
+    received,
+    amount,
+    signature,
+  };
+
+  // 블록체인 인터페이스 관리 Http 서버에 요청
+  const response = await request.post("/sendTransaction", txObject);
+  console.log(response.data);
+  res.json({});
 });
 
 app.listen(4000, () => {

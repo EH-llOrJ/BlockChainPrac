@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "ts-node ./src/core/wallet/server.ts"
+    "start": "ts-node ./wallet/server.ts",
+    "dev": "ts-node ./index.ts"
   },
   "keywords": [],
   "author": "",

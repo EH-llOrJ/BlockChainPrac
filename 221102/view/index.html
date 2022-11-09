@@ -58,12 +58,12 @@
 
     const submitHandler = async (e) => {
       e.preventDefault();
-      const publicKey = publicKey.innerHTML;
-      const account = account.innerHTML;
+      const _publicKey = document.querySelector(".publicKey").innerHTML;
+      const _account = document.querySelector(".account").innerHTML;
       const data = {
         sender: {
-          publicKey,
-          account,
+          publicKey: _publicKey,
+          account: _account,
         },
         received: e.target.received.value,
         amount: parseInt(e.target.amount.value),
@@ -79,7 +79,7 @@
       balance.innerHTML = wallet.balance;
     };
 
-    const getView = async () => {
+    const getView = async (acconut) => {
       // 계정 정보
       const response = await axios.get(`/wallet/${account}`);
       view(response.data);
@@ -88,9 +88,12 @@
     const getWalletList = async () => {
       const response = await axios.post("/walletList", null);
 
-      const list = response.data.map((account) => {
-        return `<li onClick="getView('${account}')">${account}</li>`;
-      });
+      const list = response.data
+        .map((account) => {
+          return `<li onClick="getView('${account}')">${account}</li>`;
+        })
+        .join("");
+      // 뒤에 .join("") 붙이면 목록 불러올 때 , 안 생김
 
       walletList2.innerHTML = list;
     };

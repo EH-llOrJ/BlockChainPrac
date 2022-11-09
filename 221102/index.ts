@@ -2,11 +2,41 @@ import { BlockChain } from "@core/index";
 import { P2PServer } from "@core/server/p2p";
 import express from "express";
 import { json } from "stream/consumers";
+import { ReceivedTx, Wallet } from "@core/wallet/wallet";
 
 const app = express();
 const ws = new P2PServer();
 
 app.use(express.json());
+
+// 블록체인 인터페이스 관리
+// 다른 사람이 내 노드의 블록을 조회하는 것을 방지
+// 헤더에 Authorization를 조회
+// 사용자가 인증된 경우에만 조회가 가능하도록 처리해야하는 경우
+// Authorization : Basic 방식을 사용해서 인증되지 않은 사용자는 조회가 불가능하게
+// 이 부분은 요청의 헤더에 (req.headers.authorization) authorization 값이
+// userid = "hoon", userpw = "1234" 정보를 가지고 요청한 사용자만 조회 가능하도록 처리
+app.use((req, res, next) => {
+  // req.headers.authorization 타입이 string | undefined
+  const baseAuth: string = (req.headers.authorization || "").split(" ")[1];
+  if (baseAuth === "") return res.send("오류 비어있는 값이다");
+  const [userid, userpw] = Buffer.from(baseAuth, "base64")
+    .toString()
+    .split(":");
+  // 통과 다 되면 next();
+  next();
+});
+
+// sendTransaction 라우터
+app.post("/sendTransaction", (req, res) => {
+  try {
+    const receivedTx: ReceivedTx = req.body;
+    Wallet.sendTransaction(receivedTx);
+  } catch (e) {
+    if (e instanceof Error) console.log(e.message);
+  }
+  res.json({});
+});
 
 app.get("/", (req, res) => {
   res.send("bit-chain");
@@ -37,7 +67,7 @@ app.get("/peer", (req, res) => {
   res.send(sockets);
 });
 
-app.listen(8000, () => {
+app.listen(3000, () => {
   console.log("열림");
   ws.listen();
 });
