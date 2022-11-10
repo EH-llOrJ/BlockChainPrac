@@ -18,7 +18,7 @@ export class Wallet {
   public balance: number;
   public signature: elliptic.ec.Signature;
 
-  constructor(sender: string = "", signature: elliptic.ec.Signature) {
+  constructor(sender: string, signature: elliptic.ec.Signature) {
     this.publicKey = sender;
     this.account = this.getAccount();
     this.signature = signature;
