@@ -4,10 +4,17 @@ export class BlockHeader implements IBlockHeader {
   public timestamp: number;
   public previousHash: string;
 
+  // 블록을 만들 때 블록의 바디와 헤더로 일단 나누어 놓았는데
+  // 우리가 이해도를 높이기 위해 명시해 놓은 것
+  // 블록 하나로 되어있는데 영역을 body header로 명시해 놓은 것
+  // header에 이전 블록의 정보가 필요하기 때문에 생성 단계에서
+  // Iblock의 형태인 _previousBlock을 매개변수로 전달해주는 것
   constructor(_previousBlock: IBlock) {
     this.version = BlockHeader.getVersion();
     this.timestamp = BlockHeader.getTimestamp();
+    // 이전 블록의 높이에서 1을 증가시킨 값
     this.height = _previousBlock.height + 1;
+    // 이전 블록의 해시값
     this.previousHash = _previousBlock.hash;
   }
 
