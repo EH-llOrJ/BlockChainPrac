@@ -13,7 +13,7 @@ const dir = path.join(__dirname, "../data");
 const ec = new elliptic.ec("secp256k1");
 
 export class Wallet {
-  public acconut: string;
+  public account: string;
   public privateKey: string;
   public publicKey: string;
   public balance: number;
@@ -21,7 +21,7 @@ export class Wallet {
   constructor(privateKey: string = "") {
     this.privateKey = privateKey || this.getPrivateKey();
     this.publicKey = this.getPublicKey();
-    this.acconut = this.getAccount();
+    this.account = this.getAccount();
     this.balance = 0;
     // fs 모듈을 사용해서 프로그램을 통해 지갑을 만들때 개인키를 안전하게 저장하는게
     // 중요한 이유고 그래서 루트 폴더에 data 폴더를 만들어 준후
@@ -33,7 +33,7 @@ export class Wallet {
   static createWallet(myWallet: Wallet) {
     // fs 모듈을 이용해서 개인키를 저장할 파일 만들기
     // writeFileSync함수의 매개변수 첫번째 파일 이름 두번째 파일 내용
-    const filename = path.join(dir, myWallet.acconut);
+    const filename = path.join(dir, myWallet.account);
     const filecontent = myWallet.privateKey;
     fs.writeFileSync(filename, filecontent);
   }

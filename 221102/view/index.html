@@ -73,13 +73,13 @@
     };
 
     const view = (wallet) => {
-      account.innerHTML = wallet.acconut;
+      account.innerHTML = wallet.account;
       publicKey.innerHTML = wallet.publicKey;
       privateKey.innerHTML = wallet.privateKey;
       balance.innerHTML = wallet.balance;
     };
 
-    const getView = async (acconut) => {
+    const getView = async (account) => {
       // 계정 정보
       const response = await axios.get(`/wallet/${account}`);
       view(response.data);

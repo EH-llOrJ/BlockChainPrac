@@ -13,14 +13,14 @@ export interface ReceivedTx {
 }
 
 export class Wallet {
-  public acconut: string;
+  public account: string;
   public publicKey: string;
   public balance: number;
   public signature: elliptic.ec.Signature;
 
   constructor(sender: string = "", signature: elliptic.ec.Signature) {
     this.publicKey = sender;
-    this.acconut = this.getAccount();
+    this.account = this.getAccount();
     this.signature = signature;
     this.balance = 0;
   }
@@ -33,6 +33,7 @@ export class Wallet {
     // 보내는 사람의 지갑 정보를 최신화
     // 현재 가지고 있는 정보 공개키, 실제 트랜젝션에 넣을 정보는 account 정보
     const myWallet = new this(receivedTx.sender, receivedTx.signature);
+    console.log(myWallet);
   }
 
   static getVerify(receivedTx: ReceivedTx): Failable<undefined, string> {

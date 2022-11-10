@@ -2,7 +2,7 @@
 
 import express from "express";
 import nunjucks from "nunjucks";
-import { Wallet } from "./Wallet";
+import { Wallet } from "./wallet";
 import axios from "axios";
 import path from "path";
 
