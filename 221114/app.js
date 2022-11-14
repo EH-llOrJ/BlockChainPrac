@@ -298,4 +298,17 @@ windows Subsystem for Linux 이걸 체크
 그게 아니라면 밑 링크
 https://support.bluestacks.com/hc/ko/articles/360058102252-%EB%B8%94%EB%A3%A8%EC%8A%A4%ED%83%9D5-Windows-10%EC%97%90%EC%84%9C-%EA%B0%80%EC%83%81%ED%99%94-VT-%ED%99%9C%EC%84%B1%ED%99%94%ED%95%98%EA%B8%B0
 
+cmd창을 관리자 권한으로 실행
+
+cmd창 내에서 명령어
+
+배포 이미지 서비스 및 관리 대한 부분
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+설치할 수 있는 배포 목록 확인 명령어
+wsl -l -o
+
+wsl --install -d Ubuntu
 */
