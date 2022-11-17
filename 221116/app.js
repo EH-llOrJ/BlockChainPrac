@@ -89,7 +89,7 @@ npx ganache-cli
 오류 난다면
 /usr/bin/env: ‘bash\r’: Permission denied
 거부된 거니까
-sudo apt install nodejs npm에서 노드 및 npm 설치 까지
+sudo apt install nodejs npm에서 노드 및 npm 설치 까지(이 방법으로)
 혹은
 일반 터미널에서 (wsl 나가서) npm i -g ganache-cli로 설치 가능
 
@@ -182,7 +182,65 @@ RPC개념 추가 https://velog.io/@jakeseo_me/RPC%EB%9E%80
 함수는 input에 대한 output의 발생을 목적으로 하고
 프로시저는 결과보다는 명령 단위가 수행하는 절차를 목적으로 한다.
 
+가나쉬에서 curl를 사용해서 요청을 보내고 확인하는 법
 
+curl은 client URL
 
+클라이언트에서 소스코드를 손쉽게 웹 브라우저처럼 활용할 수 있게 해주는 기술
+서버 통신할 수 있는 커맨드 명령어 툴이다. 웹개발에서 많이 사용되는 기술
+장점은 다양한 프로토콜을 지원한다는 장점이 있다.
+
+DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, SSL 등등
+
+url을 가지고 할 수 있는 건 웬만하면 다 할 수 있다 라고 보면 된다.
+HTTP 프로토콜을 사용해서 페이지의 데이터를 가져온다거나 파일을 다운 받을 수도 있다.
+curl [-option] 페이지 주소 쓰면 페이지의 소스가 화면에 출력된다.
+
+npx ganache-cli로 가나쉬 실행 시켜 놓고
+curl -X POST -H "content-type:application/json" --data "{id : soon}" http://localhost:3000
+
+-X 요청 메소드
+-H 요청 헤더 내용
+-data, -d 요청 바디 내용 작성
+
+가나쉬로 생성한 이더리움 클라이언트에
+curl을 사용해서 RPC 요청을 보내보자
+request body의 내용
+{
+ "id" : 1215 // 체인의 아이디 , 있어도 되고 없어도 된다.
+ "jsonrpc"  : "2.0"// json으로 인코딩한 프로시저 호출 // 필수
+ "method" : "eth_accounts", // 이더리움 클라이언트에 구성되어 있는 메소드 명 필수
+ "params" : [] // 메소도의 인자 값
+}
+
+계정을 가져오기
+curl -X POST -H "content-type : application/json" --data '{"jsonrpc" : "2.0","method" : "eth_accounts"}' http://localhost:8545
+
+curl -X POST -H "content-type : application/json" --data '{ "jsonrpc": "2.0", "method": "eth_accounts", "params": []}' http://localhost:8545
+
+curl -X POST -H "content-type : application/json" --data "{\"jsonrpc\" : \"2.0\",\"method\" : \"eth_accounts\"}" http://localhost:8545
+
+잔액 조회하기
+
+잔액 조회하는 함수 이름은 "eth_getBalance"
+"eth_getBalance" 함수는 params로 매개변수 2개를 전달하고
+첫 번째에는 계정의 주소
+두 번째는 몇 번째 블록을 조회할 것인지
+
+curl -X POST -H "content-type : application/json" --data '{ "jsonrpc": "2.0", "method": "eth_getBalance", "params": ["0x3408d811bceeaf65b4a01ee2373a9cfdaec3904c","latest"] }' http://localhost:8545
+// params엔 나온 result 중 아무거나
+
+이더리움 클라이언트에게 RPC를 요청 보내는 방법이다.
+Web3 라이브러리
+Web3.js라는 라이브러리 제공 받아서 이더리움 네트워크와 상호작용을 할 수 있는 다양한 함수를 제공 받아 사용할 수 있다.
+위에서 해본 RPC 요청을 쉽게 보낼 수 있게 해주는 라이브러리
+
+npm init -y
+npm i -D jest
+npm i web3
+
+package.json
+"test": "jest" 로 변경
+jest.config.js 파일 생성
 
 */
