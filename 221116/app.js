@@ -243,4 +243,7 @@ package.json
 "test": "jest" 로 변경
 jest.config.js 파일 생성
 
+ethereumjs-tx 라이브러리 설치
+
+npm i ethereumjs-tx
 */
