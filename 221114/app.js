@@ -311,4 +311,18 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 wsl -l -o
 
 wsl --install -d Ubuntu
+터미널 창에서 우분투 접속은 wsl만 치면 되고
+
+wsl의 list와 version을 볼 수 있는 명령어
+wsl -l -v
+
+wsl2로 버전업을 할건데
+wsl Linux wsl2 버전업
+링크 https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+
+설치하고 터미널에서
+wsl --set-default-version Ubuntu 2
+////////////////////////////////////////////// 참고 ㄴㄴ 엥..wsl --set-default-version 2 이건 그냥
+혹시나 안되면 wsl --set-version Ubuntu 2
+
 */
