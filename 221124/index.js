@@ -6,15 +6,14 @@ const [abi, bytecode] = Contract.compile("test.sol");
 // console.log(abi, bytecode);
 
 const client = new Client("ws://127.0.0.1:9005");
+
 // console.log(client);
 
 const contract = new client.web3.eth.Contract(abi);
 // console.log(contract);
-
 const txObject = { data: bytecode };
+
 const Address = "b18d53d888825ac66c3b6d1cce285b8a244b93dc";
-const CA = instance.options.address;
-const deployed = new client.web3.eth.Contract(abi, CA);
 
 async function init() {
   // deploy() : 반환값이 promise 객체
@@ -23,13 +22,13 @@ async function init() {
   // 배포하고 메소드나 변수들을 가져와야 하는데
   // 필요한게 abi와 contract Address
   // instance 객체 안에 options.address에 contract address가 들어있다.
-  console.log("CA: ", CA);
-
-  // getter로 value값 가져옴
 }
 
-init();
+const CA = "0xCC787dCe1297690b69d22Ba22A916EA6259bCA30";
+console.log("CA: ", CA);
 
+const deployed = new client.web3.eth.Contract(abi, CA);
+// getter로 value값 가져옴
 deployed.methods
   .value()
   .call()
@@ -38,8 +37,9 @@ deployed.methods
   });
 
 deployed.methods
-  .setValue("바꿀 셋 밸류asdfasdf")
+  .setValue("setValue: 임의로asdfasdf")
   .send({ from: Address })
   .then((data) => {
     console.log(data);
   });
+init();
