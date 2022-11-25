@@ -178,7 +178,7 @@ const genesis = {
 
 // 명령어 실행후
 // geth --datadir node --http --http.addr "127.0.0.1" --http.port 9000 --http.corsdomain "*" \
---http.api "admin,miner,txpool,web3,personal,eth,net" --syncmode full --networkid 7722
+//--http.api "admin,miner,txpool,web3,personal,eth,net" --syncmode full --networkid 7722
 
 // 터미널에 wsl 하나더 열어서
 // geth attach http://127.0.0.1:9000
