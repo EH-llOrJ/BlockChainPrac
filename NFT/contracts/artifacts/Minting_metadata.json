@@ -430,11 +430,11 @@
 	},
 	"sources": {
 		"Minting.sol": {
-			"keccak256": "0xcd6b0c2a9997c2709ca86de7b5db0c17b38c0cc253d0374e2aa73945e4cf7108",
+			"keccak256": "0x51b5f67a2ad9fc865ba9f6af66f2aa413f0127c4cdcff63fcaf6b47af34ddf46",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b26f6c2f012c7113d6056d25e662556ddc8ff17fb66a04fc65f59ddf201a0d49",
-				"dweb:/ipfs/QmYf1dGJ4FqKzyV16PPukNjifhKp3k9EzLPykatfFf6tE1"
+				"bzz-raw://48183191c04cc7c18a0f006ab8e2bb45db98bd79e7ef5433b239dd56c00cd545",
+				"dweb:/ipfs/QmePoX3MVYoG6TWmFavh5QnPTnjEia5etzVuFNWRa2UM6y"
 			]
 		},
 		"openzeppelin-solidity/contracts/token/ERC721/ERC721.sol": {
