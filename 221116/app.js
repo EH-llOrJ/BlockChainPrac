@@ -33,7 +33,7 @@ git clone https://github.com/ethereum/go-ethereum
 clone이 다 받아지면
 cd go-ethereum
 geth를 실행시켜주자
-make geth
+sudo make geth
 
 go 버전 업데이트
 제거 하고
@@ -72,7 +72,6 @@ source ~/.bash_profile
 
 가나쉬 설치 명령어
 sudo npm i -g ganache-cli
-npm ganache-cli
 
 실행 명령어
 npx ganache-cli
